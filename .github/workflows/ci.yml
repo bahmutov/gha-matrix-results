@@ -8,7 +8,16 @@ jobs:
       matrix:
         name: [foo, bar, baz]
     runs-on: ubuntu-latest
-  steps:
+    outputs:
+      passed: ${{ steps.set1.outputs.passed }}
     # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-    - name: Set output
-      run: echo "passed=5" >> "$GITHUB_OUTPUT"
+    steps:
+      - name: Set output
+        id: set1
+        run: echo "passed=${{ matrix.name }}" >> "$GITHUB_OUTPUT"
+  summary:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Print inputs
+        run: echo ${{ toJSON(needs.test.outputs.passed) }}
