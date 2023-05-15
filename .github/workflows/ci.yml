@@ -9,7 +9,7 @@ jobs:
         name: [foo, bar, baz]
     runs-on: ubuntu-latest
     outputs:
-      passed: ${{ steps.set1.outputs.passed }}
+      passed_${{ strategy.job-index }}: ${{ steps.set1.outputs.passed }}
     # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
     steps:
       - name: Set output
