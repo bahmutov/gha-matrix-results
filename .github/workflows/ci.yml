@@ -1,0 +1,14 @@
+name: CI
+on: push
+jobs:
+  test:
+    strategy:
+      # do not stop the matrix if one of the jobs fails
+      fail-fast: false
+      matrix:
+        name: [foo, bar, baz]
+    runs-on: ubuntu-latest
+  steps:
+    # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+    - name: Set output
+      run: echo "passed=5" >> "$GITHUB_OUTPUT"
